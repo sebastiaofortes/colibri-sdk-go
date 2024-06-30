@@ -8,3 +8,4 @@ Nessa versão:
 - foi adicionada uma lógica para obter valor unitário dos slices em parâmetros variádicos.
 - foi adiconado a chamada de contrutores com parâmetros variádicos.
 - foi adicionado uma nota sobre a desambiguação não funcionar em parâmetros variádicos.
+- foi adicionado o atributo `isVariadic` na struct `DependencyBean`

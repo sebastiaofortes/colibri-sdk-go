@@ -50,22 +50,17 @@ func (c *Container) getDependencyConstructorArgs(dependency DependencyBean) []re
 	args := []reflect.Value{}
 	fmt.Printf("constructor: %s, number of parameters: %d\n", dependency.Name, len(dependency.ParamTypes))
 	for position, paramType := range dependency.ParamTypes {
-		isVariadic := dependency.constructorType.IsVariadic()
-		if isVariadic {
+		
+		// Check if trhe variadic param
+		if dependency.IsVariadic {
 			if position == (len(dependency.ParamTypes) - 1) {
-				if paramType.Kind() == reflect.Slice {
-					// Obtém o tipo dos elementos do slice
-					elementType := paramType.Elem()
-					log.Println("variadic: ", elementType)
-					paramType = elementType
-				}
+				// Redice slice elements to single element
+				paramType = ReduceSliceToSingleElement(paramType)
 			}
-		} else {
-
 		}
 
 		// Procura na lista de um contrutuores um tipo igual ao do parametro
-		injectableDependencies := c.searchInjectableDependencies(paramType, dependency.constructorReturn, isVariadic)
+		injectableDependencies := c.searchInjectableDependencies(paramType, dependency.constructorReturn, dependency.IsVariadic)
 
 		for _, injectableDependency := range injectableDependencies {
 			if injectableDependency.IsFunction {
@@ -78,7 +73,6 @@ func (c *Container) getDependencyConstructorArgs(dependency DependencyBean) []re
 					injectableDependency.fnValue = resp[0]
 					injectableDependency.IsFunction = false
 					// Update the object in the dependencies list
-
 					c.dependencies[injectableDependency.Name] = injectableDependency
 				}
 			} else {
