@@ -95,11 +95,11 @@ Durante o processo de mapeamento e injeção, caso seja encontrado mais de um co
 
 > **Observação:** a desambiguação não funciona em parâmetros variádicos
   
-## Fluxo de funcionamento do contêiner
+# Fluxo de funcionamento do contêiner
 
-O container de injeção de dependência funciona por meio de um processo de empilhamento e desempilhamento(injeção). Na fase de empilhamento, são identificadas as dependências de um objeto e as dependências dessas dependências, em um ciclo recursivo que termina ao encontrar objetos que não necessitam de injeção de dependência. Na fase de injeção, os objetos mapeados na pilha são criados de forma que os objetos no topo da pilha são utilizados como parâmetros para a criação dos objetos nas camadas inferiores.
+O container de injeção de dependência funciona por meio de um processo de empilhamento e injeção. Na fase de empilhamento, são identificadas as dependências de um objeto e as dependências dessas dependências, em um ciclo recursivo que termina ao encontrar objetos que não necessitam de injeção de dependência. Na fase de injeção, os objetos mapeados na pilha são criados de forma que os objetos no topo da pilha são utilizados como parâmetros para a criação dos objetos nas camadas inferiores.
 
-![flow](flow-1.png)
+![flow](flow.png)
 
 1. Registram-se os construtores responsáveis por criar todas as dependências da aplicação. As dependências criadas pelos construtores e injetadas nos parâmetros de outros construtores são chamadas de beans.
 
